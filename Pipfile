@@ -9,7 +9,7 @@ pytest-cov = "*"
 
 [packages]
 
-    csci-utils = {editable = true,git = "https://github.com/csci-e-29/2019fa-csci-utils-lakshmiu1"}
+    #csci-utils = {editable = true,git = "https://github.com/csci-e-29/2019fa-csci-utils-lakshmiu1"}
 
 
 [requires]
