@@ -37,7 +37,13 @@ for key, value in ddf.iterrows():
 	master_df = pd.concat([master_df, pd.merge(row_df, json_df, on = 'A').drop('A',1)])
 # print(master_df.reset_index())
 
-
+dbname = 'vsf1.db'
+vsf = VSFDatabase(dbname)
+vsf.insert_from_df(master_df, False)
+df_read = vsf.read_into_df()
+vsf.close()
+print(df_read)
+df_read.to_csv('test.csv')
 
 
 
