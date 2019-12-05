@@ -8,9 +8,12 @@ pytest = "*"
 pytest-cov = "*"
 
 [packages]
-
-    #csci-utils = {editable = true,git = "https://github.com/csci-e-29/2019fa-csci-utils-lakshmiu1"}
-
+luigi = "*"
+dask = {extras = ["dataframe"],version = "*"}
+fastparquet = "*"
+s3fs = "*"
+awscli = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.7"
