@@ -1,7 +1,9 @@
 import os
 import luigi
 from luigi import ExternalTask, Parameter, Task
-#from luigi.contrib.s3 import S3Target
+from luigi.contrib.s3 import S3Target
+from utils.luigi.dask.target import CSVTarget, ParquetTarget
+from utils.luigi.task import TargetOutput
 
 '''
 Create a  Luigi task to verify that the file for the processing date has arrived and available for processing.
@@ -15,20 +17,32 @@ APIs and the authentication mechanisms
 Build UI App for displaying the data 
 '''
 class VerifyFileArrived(ExternalTask):
+
     '''
     This should check if there are any files for processing for today
     So we have a directory called as current and if files are present for that date, we go ahead with the processing
     Here we need to create a TargetOutput(), which checks files exists for processing
     '''
-    pass
+
+    S3_ROOT = "s3://lakshmiu1/pset_5/"  # Root S3 path, as a constant
+
+    root = Parameter(default=S3_ROOT)
+
+    def output(self):
+        # return the S3Target of the files
+        target = S3Target(self.S3_ROOT, format=luigi.format.Nop)
+        return target
 
 class ArchiveGzFile(ExternalTask):
     '''
     Requires - Output from VerifyFileArrived
-    Run - Copy the File to Archive Directory
+    Run - Gunzip and copy the File to Archive Directory
     Output - File Exists in the Archive Directory
     '''
-    pass
+    #copy(source_path, destination_path, threads=100, start_time=None, end_time=None, part_size=8388608, **kwargs)[
+    #    source]
+    #requires = Requires()
+
 
 class SaveGzFileLocally(Task):
     '''
