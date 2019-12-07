@@ -1,7 +1,7 @@
-from pkg_resources import get_distribution, DistributionNotFound
-
-try:
-    __version__ = get_distribution(__name__).version
-except DistributionNotFound:
-    # package is not installed
-    __version__ = "Please install this project with setup.py"
+__version__ = "0.1.0"
+__version_info__ = tuple(
+    [
+        int(num) if num.isdigit() else num
+        for num in __version__.replace("-", ".", 1).split(".")
+    ]
+)
