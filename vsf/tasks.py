@@ -24,7 +24,7 @@ class VerifyFileArrived(ExternalTask):
     Here we need to create a TargetOutput(), which checks files exists for processing
     '''
 
-    S3_ROOT = "s3://cscie29vsf/"  # Root S3 path, as a constant
+    S3_ROOT = "s3://cscie29vsf/amplitude/"  # Root S3 path, as a constant
 
     root = Parameter(default=S3_ROOT)
 
@@ -36,7 +36,7 @@ class VerifyFileArrived(ExternalTask):
 class ArchiveGzFile(ExternalTask):
     '''
     Requires - Output from VerifyFileArrived
-    Run - Gunzip and copy the File to Archive Directory
+    Run - Copy the File to Archive Directory
     Output - File Exists in the Archive Directory
     '''
     #copy(source_path, destination_path, threads=100, start_time=None, end_time=None, part_size=8388608, **kwargs)[
@@ -58,8 +58,6 @@ class ArchiveGzFile(ExternalTask):
     def run(self):
         # Use self.output() and self.input() targets to atomically copy
         # the file
-        print(self.input().path)
-        print(self.output().path)
         self.client.copy(self.input().path, self.output().path)
 
 class SaveGzFileLocally(Task):
@@ -68,7 +66,9 @@ class SaveGzFileLocally(Task):
     Run - Copy the File to Data Directory
     Output - File Exists in the Data Directory
     '''
-    pass
+
+    LOCAL_PATH = "data://cscie29vsf/amplitude/"  # Destination S3 Path, as a constant, target directory
+
 
 class CleanandProcessData(Task):
     '''
