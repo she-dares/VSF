@@ -1,7 +1,7 @@
 import os
 import luigi
 from luigi import ExternalTask, Parameter, Task
-from luigi.contrib.s3 import S3Target
+from luigi.contrib.s3 import S3Target, S3Client
 from utils.luigi.dask.target import CSVTarget, ParquetTarget
 from utils.luigi.task import TargetOutput
 
@@ -24,7 +24,7 @@ class VerifyFileArrived(ExternalTask):
     Here we need to create a TargetOutput(), which checks files exists for processing
     '''
 
-    S3_ROOT = "s3://lakshmiu1/pset_5/"  # Root S3 path, as a constant
+    S3_ROOT = "s3://cscie29vsf/"  # Root S3 path, as a constant
 
     root = Parameter(default=S3_ROOT)
 
@@ -42,7 +42,25 @@ class ArchiveGzFile(ExternalTask):
     #copy(source_path, destination_path, threads=100, start_time=None, end_time=None, part_size=8388608, **kwargs)[
     #    source]
     #requires = Requires()
+    S3_DEST_PATH = "s3://cscie29vsf/archive/"  # Destination S3 Path, as a constant, target directory
+    client = S3Client()
 
+    def requires(self):
+        # Depends on the VerifyFileArrived ExternalTask being complete
+        # i.e. the file must exist on S3 in order to take a backup and archive it
+        return VerifyFileArrived()
+
+    def output(self):
+        # return the S3Target of the files
+        return S3Target(self.S3_DEST_PATH, client=self.client)
+
+
+    def run(self):
+        # Use self.output() and self.input() targets to atomically copy
+        # the file
+        print(self.input().path)
+        print(self.output().path)
+        self.client.copy(self.input().path, self.output().path)
 
 class SaveGzFileLocally(Task):
     '''
