@@ -26,6 +26,7 @@ django-allauth = "*"
 django-crispy-forms = "*"
 django-extensions = "*"
 coreapi = "*"
+boto = "*"
 
 [requires]
 python_version = "3.7"
