@@ -8,3 +8,4 @@ class MyTest(TestCase):
     def test_blah(self):
 
         assert True
+
