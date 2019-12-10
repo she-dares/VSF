@@ -62,6 +62,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
+
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -74,6 +75,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "vsf.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    "vsf_eventapp.apps.VsfEventappConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
