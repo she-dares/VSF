@@ -25,3 +25,8 @@ class LimitFact(models.Model):
     Cust_Acct = models.ForeignKey(AccountDim, on_delete=models.CASCADE) # ForeignKey
     LIMIT_DT = models.DateField(max_length=50)
     LIMIT_TYPE= models.CharField(max_length=50)
+
+#This table corresponds to the activity on a MTN
+class ActivityFact(models.Model):
+    MTN = models.ForeignKey(LineDim, on_delete=models.CASCADE)  # ForeignKey
+    EVENT_DT = models.DateField()
