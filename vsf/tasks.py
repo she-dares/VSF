@@ -46,15 +46,11 @@ class VerifyFileArrived(ExternalTask):
         obj_list = object_listing["Contents"]
         return True if len(obj_list) > 1 else False
 
-    def run(self):
-        if self.check_s3_files_exists():
-            return self.output().path
-
     def output(self):
         # return the S3Target of the files
         target = CSVTarget(self.S3_ROOT, flag=False, glob="*.*")
-        return target
-
+        if self.check_s3_files_exists():
+            return target
 
 class ArchiveGzFile(ExternalTask):
     """
@@ -139,6 +135,7 @@ class CleanandProcessData(Task):
 
     output = TargetOutput(target_class=ParquetTarget, file_pattern=LOCAL_ROOT, ext="")
 
+
     def run(self):
         dtype_dic = {"amplitude_id": "object", "os_version": "object", "mdn": "object"}
         dsk = self.input()["verify_files"].read_dask(
@@ -148,7 +145,7 @@ class CleanandProcessData(Task):
                 "client_upload_time",
                 "server_upload_time",
             ],
-            dtype=dtype_dic,
+            dtype=dtype_dic, delimiter="|", compression="gzip", blocksize=None
         )
         self.output().write_dask(dsk, compression="gzip", compute=True)
 
@@ -170,6 +167,9 @@ class ByMdn(Task):
         )
         self.output().write_dask(dsk, compression="gzip")
         self.print_results()
+
+class PairingFile(ExternalTask):
+    S3_ROOT = "s3://cscie29vsf/pairing/"  # Root S3 path, as a constant
 
 
 class OpenGzFile(ExternalTask):
