@@ -207,7 +207,7 @@ class CSVTarget(BaseDaskTarget):
     @classmethod
     def _read(cls, path, **kwargs):
         return read_csv(
-            path, **kwargs, delimiter="|", compression="gzip", blocksize=None
+            path, **kwargs
         )
 
     @classmethod
