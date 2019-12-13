@@ -1,35 +1,30 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet, ViewSet
-from .models import LineDim, ActivityFact
+from .serializers import ByLimitSerializer, ActivitySerializer
+from .models import LineDim, ActivityFact, LimitFact
 
-# Create your views here.
-class ByActivityDays(ModelViewSet):
+
+
+class ActivityViewSet(ModelViewSet):
+    queryset = ActivityFact.objects.all()
+    serializer_class = ActivitySerializer
+
+
+
+class ByLimit(ModelViewSet):
     def get_queryset(self):
+        # print("Hello World")
 
         out_queryset = (
-            ActivityFact.objects.annotate(year=F("date_id") / 10000)
-            .values("MTN_id")
-            .annotate(
-                delta_days = LineDim.objects.get(pk="MTN_id").
-                tot_count=Sum("count"),
-                stars_avg=ExpressionWrapper(
-                    Sum("stars") * 1.0 / Sum("count") * 1.0, output_field=FloatField()
-                ),
-                useful_avg=ExpressionWrapper(
-                    Sum("useful") * 1.0 / Sum("count") * 1.0, output_field=FloatField()
-                ),
-                funny_avg=ExpressionWrapper(
-                    Sum("funny") * 1.0 / Sum("count") * 1.0, output_field=FloatField()
-                ),
-                cool_avg=ExpressionWrapper(
-                    Sum("cool") * 1.0 / Sum("count") * 1.0, output_field=FloatField()
-                ),
-            )
-            .order_by("year")
-            .distinct()
+            ActivityFact.objects.select_related('MTN_id__LIMIT_TYPE').filter(MTN_id__LIMIT_TYPE='USG')
+            .values('MTN_id')
             .all()
         )
+        print(out_queryset)
 
         return out_queryset
 
-    serializer_class = ByYearSerializer
+    serializer_class = ByLimitSerializer
+
+def render_aggregation(request):
+    return render(request, "vsf_eventapp/index.html", {})
