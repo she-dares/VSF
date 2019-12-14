@@ -40,7 +40,6 @@ class Command(BaseCommand):
             columns=["mdn", "event_time"], parse_dates=["event_time"]
         ).compute()
 
-        print(df_LimitFact.head(5))
         LineDim.objects.all().delete()
 
         with transaction.atomic():
@@ -49,6 +48,7 @@ class Command(BaseCommand):
                     MTN=line["MTN"],
                     Device_Grouping=line["DEVICE_GROUPING"],
                     Sales_Channel=line["SALES_CHANNEL"],
+                    SVC_ACT_DT=line["SVC_ACT_DT"],
                 )
                 for idx, line in df_LineDim.iterrows()
             ]

@@ -18,12 +18,13 @@ class LineDim(models.Model):
     MTN = models.CharField(max_length=50,primary_key=True)
     Device_Grouping = models.CharField(max_length=50)
     Sales_Channel = models.CharField(max_length=50)
+    SVC_ACT_DT = models.DateField()
 
 #This table corresponds to the Limit Fact data and stores the USage Limit data
 class LimitFact(models.Model):
     MTN = models.ForeignKey(LineDim, on_delete=models.CASCADE) # ForeignKey
     Cust_Acct = models.ForeignKey(AccountDim, on_delete=models.CASCADE) # ForeignKey
-    LIMIT_DT = models.DateField(max_length=50)
+    LIMIT_DT = models.DateField()
     LIMIT_TYPE= models.CharField(max_length=50)
 
 #This table corresponds to the activity on a MTN
