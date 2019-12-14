@@ -3,3 +3,7 @@ omit =
     */tests.py
     */test_*.py
     */*_tests.py
+    vsf/datapipeline.py
+    vsf/db_con.py
+    vsf/utils/context_processors.py
+    vsf/users/adapters.py
