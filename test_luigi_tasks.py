@@ -10,7 +10,14 @@ from utils.luigi.dask.target import ParquetTarget, CSVTarget
 from luigi.contrib.s3 import S3Target
 from utils.luigi.task import TargetOutput, Requirement, Requires
 from vsf.tasks import VerifyFileArrived, ArchiveGzFile, CleanandProcessData, ByMdn
-from vsf.djangotasks import LineDimVer, LineDimLoad, AccountDimVer, AccountDimLoad, LimitFactVer, LimitFactLoad
+from vsf.djangotasks import (
+    LineDimVer,
+    LineDimLoad,
+    AccountDimVer,
+    AccountDimLoad,
+    LimitFactVer,
+    LimitFactLoad,
+)
 from luigi import build, ExternalTask, format, Parameter, Task, BoolParameter
 from dask import dataframe as dd
 
@@ -19,32 +26,11 @@ SUBSET = [True, False]
 RESULTS = [LuigiStatusCode.SUCCESS, LuigiStatusCode.MISSING_EXT]
 
 d = {
-    "mdn": [
-        "6777777776",
-        "7167167161",
-        "3333333333",
-    ],
-    "event_time": [
-        "2019-05-20",
-        "2019-07-01",
-        "2019-08-02",
-    ],
-    "client_event_time": [
-        "2019-05-20",
-        "2019-07-01",
-        "2019-08-02",
-    ],
-    "client_upload_time" : [
-        "2019-05-20",
-        "2019-07-01",
-        "2019-08-02",
-    ],
-    "server_upload_time" : [
-        "2019-05-20",
-        "2019-07-01",
-        "2019-08-02",
-    ],
-
+    "mdn": ["6777777776", "7167167161", "3333333333"],
+    "event_time": ["2019-05-20", "2019-07-01", "2019-08-02"],
+    "client_event_time": ["2019-05-20", "2019-07-01", "2019-08-02"],
+    "client_upload_time": ["2019-05-20", "2019-07-01", "2019-08-02"],
+    "server_upload_time": ["2019-05-20", "2019-07-01", "2019-08-02"],
 }
 df = pd.DataFrame(d)
 
@@ -71,7 +57,9 @@ class TasksDataTests(TestCase):
                 CSVTarget.exists.assert_called()
 
         self.assertEqual(
-            build([ArchiveGzFile()], local_scheduler=True, detailed_summary=True).status,
+            build(
+                [ArchiveGzFile()], local_scheduler=True, detailed_summary=True
+            ).status,
             LuigiStatusCode.SUCCESS,
         )
 
@@ -80,12 +68,8 @@ class TasksDataTests(TestCase):
 
         for mock_value, result in zip(MOCK_VALUES, RESULTS):
             with patch(csv_target_exists, MagicMock(return_value=False)):
-                with patch(
-                        parquet_target_exists, MagicMock(return_value=mock_value)
-                ):
-                    self.assertEqual(
-                        build_func(CleanandProcessData), result
-                    )
+                with patch(parquet_target_exists, MagicMock(return_value=mock_value)):
+                    self.assertEqual(build_func(CleanandProcessData), result)
                     self.assertEqual(build_func(ByMdn), result)
                     self.assertEqual(build_func(LineDimLoad), result)
                     self.assertEqual(build_func(AccountDimLoad), result)
@@ -191,4 +175,3 @@ class DaskTests(TestCase):
             build([MyTaskC()], local_scheduler=True, detailed_summary=True).status,
             LuigiStatusCode.SUCCESS,
         )
-
