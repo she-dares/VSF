@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!--
+    Load the CoreAPI library and the API schema.
+
+    /static/rest_framework/js/coreapi-0.1.1.js
+    /docs/schema.js
+-->
+
+
+
+
+
+
+{% load static %}
+
+
+
+
+<script>
+function loadDoc() {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      obj = JSON.parse(this.responseText);
+     // alert(this.responseText);
+      for (i=0;i<obj.results.length; i++)
+      {
+          mtnlist = "<li>" + obj.results[i].MTN+ "</li>";
+       document.getElementById("demo").innerHTML += mtnlist;
+      }
+      //document.getElementById("demo").innerHTML =
+      //obj.results[1].MTN;
+    }
+  };
+  xhttp.open("GET", "http://127.0.0.1:8000/vsf/api/by_limit/", true);
+  xhttp.send();
+}
+
+</script>
+
+
+
+
+
+<h3>List of MTNs for Limit Type</h3>
+<h3>List of MTNs for Limit Type</h3>
+
+<body onload="loadDoc()">
+
+<div id="demo">
+</div>
+
+
+
+{% endblock %}
+
+</body>
