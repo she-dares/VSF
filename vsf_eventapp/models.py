@@ -15,7 +15,7 @@ class AccountDim(models.Model):
 
 #This table stores the line level dimension data
 class LineDim(models.Model):
-    MTN = models.CharField(max_length=50,primary_key=True)
+    MTN = models.CharField(max_length=10,primary_key=True)
     Device_Grouping = models.CharField(max_length=50)
     Sales_Channel = models.CharField(max_length=50)
     SVC_ACT_DT = models.DateField()

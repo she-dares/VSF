@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -11,6 +12,9 @@ urlpatterns = [
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
     # Django Admin, use {% url 'admin:index' %}
+    path("vsf/", include(("vsf_eventapp.urls", "vsf_eventapp"), namespace="vsf_eventapp"),
+           ),
+    path("docs/", include_docs_urls(title="VSF API")),
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("vsf.users.urls", namespace="users")),
