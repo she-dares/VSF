@@ -11,12 +11,8 @@ class ActivitySerializer(ModelSerializer):
 
 class ByLimitSerializer(Serializer):
     # Return the *averages*, not the sum!
-    year = IntegerField(default=0)
-    tot_count = IntegerField(default=0)
-    stars_avg = FloatField(default=0.0)
-    useful_avg = FloatField(default=0.0)
-    funny_avg = FloatField(default=0.0)
-    cool_avg = FloatField(default=0.0)
+    MTN = IntegerField()
+
 
     class Meta:
         # model = ActivityFact
