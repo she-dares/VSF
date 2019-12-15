@@ -15,6 +15,13 @@ class APIViewTests(DJTest):
 
         activityfactobj = []
         limitfactobj = []
+        lindimobj = []
+
+        for d in dates:
+            lindimobj.append(LineDim.objects.get_or_create(MTN=mtn_id, SVC_ACT_DT=d))
+            mtn_id = mtn_id + 1
+
+        mtn_id = 1000
         for d in dates:
             activityfactobj.append(
                 ActivityFact.objects.get_or_create(
