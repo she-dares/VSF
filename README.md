@@ -11,10 +11,10 @@
 Smart Family Web Analytics Portal System
 
 ## Project Overview
-Solve a problem for work at Verizon. Verizon Smart Family app is a product by Verizon for families to track location, content filtering and parental controls for the young ones.
+Solve a problem for work. VSF app is a product from our company for families to track location, content filtering and parental controls for the young ones.
 
 ## Objective
-We are proposing to derive value from the mobile analytics data collected from Verizon Smart Family App to enhance customer satisfaction and improve product performance through targeted marketing campaigns.
+We are proposing to derive value from the mobile analytics data collected from VSF App to enhance customer satisfaction and improve product performance through targeted marketing campaigns.
 
 ## Initial Setup
 
@@ -71,7 +71,7 @@ Luigi tasks for workflow - `tasks.py`
 
 #### Ensuring a Star Schema
 All our work of data modelling exemplifies a Star Schema. 
-The data models were created adhering to the database design pricinples of a
+The data models were created adhering to the database design principles of a
 [star-schema](https://www.vertabelo.com/blog/technical-articles/data-warehouse-modeling-star-schema-vs-snowflake-schema).
 
 Migration files in vsf_eventapp/migrations
@@ -99,7 +99,7 @@ Updated `.travis.yml` `answers` build:
   script:
     - python manage.py migrate
     - python manage.py vsf_appdataprep
-    - python manage.py summarize
+   
 ```
 ### Pipenv
 Used the following packages for the django environment and other packages as needed
@@ -127,7 +127,7 @@ Name                                                            Stmts   Miss Bra
 utils\__init__.py                                                   0      0      0      0   100%
 utils\luigi\__init__.py                                             0      0      0      0   100%
 utils\luigi\dask\__init__.py                                        0      0      0      0   100%
-utils\luigi\dask\target.py                                        104     25     28     12    72%
+utils\luigi\dask\target.py                                        104     22     28     11    75%
 utils\luigi\task.py                                                29      0     12      0   100%
 vsf\__init__.py                                                     2      0      2      0   100%
 vsf\__main__.py                                                     0      0      0      0   100%
@@ -153,20 +153,19 @@ vsf\users\urls.py                                                   4      0    
 vsf\users\views.py                                                 28      2      0      0    93%
 vsf\utils\__init__.py                                               0      0      0      0   100%
 vsf_eventapp\__init__.py                                            0      0      0      0   100%
-vsf_eventapp\admin.py                                               1      0      0      0   100%
+vsf_eventapp\admin.py                                               7      0      0      0   100%
 vsf_eventapp\apps.py                                                3      0      0      0   100%
 vsf_eventapp\management\__init__.py                                 0      0      0      0   100%
 vsf_eventapp\management\commands\__init__.py                        0      0      0      0   100%
-vsf_eventapp\management\commands\vsf_appdataprep.py                42     42      8      0     0%
-vsf_eventapp\migrations\0001_initial.py                             6      0      0      0   100%
-vsf_eventapp\migrations\0002_activityfact.py                        5      0      0      0   100%
-vsf_eventapp\migrations\__init__.py                                 0      0      0      0   100%
-vsf_eventapp\models.py                                             21      0      0      0   100%
-vsf_eventapp\serializers.py                                        12     12      0      0     0%
+vsf_eventapp\models.py                                             22      0      0      0   100%
+vsf_eventapp\serializers.py                                        11      0      0      0   100%
+vsf_eventapp\urls.py                                               10      0      0      0   100%
+vsf_eventapp\views.py                                              22      7      0      0    68%
 -------------------------------------------------------------------------------------------------
-TOTAL                                                             473    104     60     13    75%
+TOTAL                                                             458     54     52     12    86%
 
-======================================================================================== 12 passed, 3 warnings in 5.68s =========================================================================================
+======================================================================================== 14 passed, 6 warnings in 10.81s ========================================================================================
+
 ```
 
 ## Credits and Acknowledgements
