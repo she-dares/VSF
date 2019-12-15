@@ -7,3 +7,5 @@ omit =
     vsf/db_con.py
     vsf/utils/context_processors.py
     vsf/users/adapters.py
+    vsf_eventapp/management/commands/vsf_appdataprep.py
+
