@@ -6,7 +6,7 @@ from utils.luigi.task import Requires, Requirement, TargetOutput
 
 
 class LineDimVer(ExternalTask):
-    S3_ROOT = "s3://groupprojectcscie29/LineDimension/"
+    S3_ROOT = "s3://cscie29vsf/LineDimension/"
     """
     This class verifies that the target exists for the processing. This task loads the Line Dimension data.
     """
@@ -42,7 +42,7 @@ class LineDimLoad(Task):
 
 
 class AccountDimVer(ExternalTask):
-    S3_ROOT = "s3://groupprojectcscie29/AccountDimension/"
+    S3_ROOT = "s3://cscie29vsf/AccountDimension/"
     """
     This class verifies that the target exists for the processing. This task loads the Account Dimension data.
     """
@@ -78,7 +78,7 @@ class AccountDimLoad(Task):
 
 
 class LimitFactVer(ExternalTask):
-    S3_ROOT = "s3://groupprojectcscie29/LimitFact/"
+    S3_ROOT = "s3://cscie29vsf/LimitFact/"
     """
     This class verifies that the target exists for the processing. This task loads the Limit Facts data.
     """
