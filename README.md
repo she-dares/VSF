@@ -1,5 +1,7 @@
 # vsf
 [![Build Status](https://travis-ci.com/she-dares/VSF.svg?token=nXkzxgcfECHNJCursNs3&branch=master)](https://travis-ci.com/she-dares/VSF)
+[![Maintainability](https://api.codeclimate.com/v1/badges/91d03878cbf2dfb6a899/maintainability)](https://codeclimate.com/github/she-dares/VSF/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/91d03878cbf2dfb6a899/test_coverage)](https://codeclimate.com/github/she-dares/VSF/test_coverage)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
