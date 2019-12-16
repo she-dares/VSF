@@ -34,4 +34,5 @@ jobs:
       # credentials entered at https://travis-ci.com/csci-e-29/YOUR_PSET_REPO_NAME/settings
       # DO NOT commit these variables to git.
       #- make data
-      - python3 -m vsf
+      - python manage.py migrate
+      - python manage.py vsf_appdataprep
