@@ -35,5 +35,3 @@ jobs:
       # DO NOT commit these variables to git.
       #- make data
       - python manage.py migrate
-      - python manage.py migrate vsf_eventapp
-      - python manage.py vsf_appdataprep
